@@ -7,6 +7,20 @@ class ListAllUsersController {
 
   handle(request: Request, response: Response): Response {
     // Complete aqui
+    const { user_id } = request.headers;
+    const id = user_id.toString();
+
+    try
+    {
+
+      const list = this.listAllUsersUseCase.execute({ user_id: id });
+      
+      return response.status(201).send(list);
+    }
+    catch (error) 
+    {
+      return response.status(400).json({ error: error.message });
+    }
   }
 }
 
